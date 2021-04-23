@@ -25,72 +25,75 @@ account = {}
 def sign_up():
     try:
         while True:
-            login = str(input("--> Введите имя: "))
-            print("sam - создать свой пароль, generate - создать случайный пароль")
-            select = str(input("--> Введите значение: "))
+            try:
+                login = str(input("--> Введите имя: "))
+                print("sam - создать свой пароль, generate - создать случайный пароль")
+                select = str(input("--> Введите значение: "))
 
-            if select == "sam":
-                password = str(input("--> Введите пароль: "))
-                password = list(password)
+                if select == "sam":
+                    password = str(input("--> Введите пароль: "))
+                    password = list(password)
 
-                trdict = {"digits": False, "lowercase": False, "uppercase": False, "punc": False}
+                    trdict = {"digits": False, "lowercase": False, "uppercase": False, "punc": False}
 
-                for i in password:
-                    if i in string.digits:
-                        trdict["digits"] = True
+                    for i in password:
+                        if i in string.digits:
+                            trdict["digits"] = True
 
-                    elif i in string.ascii_lowercase:
-                        trdict["lowercase"] = True
+                        elif i in string.ascii_lowercase:
+                            trdict["lowercase"] = True
 
-                    elif i in string.ascii_uppercase:
-                        trdict["uppercase"] = True
+                        elif i in string.ascii_uppercase:
+                            trdict["uppercase"] = True
 
-                    elif i in string.punctuation:
-                        trdict["punc"] = True
+                        elif i in string.punctuation:
+                            trdict["punc"] = True
 
-                if trdict == {"digits": True, "lowercase": True, "uppercase": True, "punc": True}:
+                    if trdict == {"digits": True, "lowercase": True, "uppercase": True, "punc": True}:
+                        pass
+                    else:
+                        return "Error!"
+
+                    password = "".join(password)
+
+                elif select == "generate":
+                    str0 = ".,:;!_*-+()/#¤%&"
+                    str1 = '0123456789'
+                    str2 = 'qwertyuiopasdfghjklzxcvbnm'
+                    str3 = str2.upper()
+                    str4 = str0 + str1 + str2 + str3
+                    ls = list(str4)
+                    random.shuffle(ls)
+                    # Извлекаем из списка 12 произвольных значений
+                    password = ''.join([random.choice(ls) for x in range(12)])
+                    # Пароль готов
+                    print(password)
+
+                print("--> exit - выход, next - дальше")
+                select1 = str(input("--> Введите значение: "))
+
+                xdict = {login: password}
+
+                if select1 == "next":
                     pass
+                elif select == "exit":
+                    return "Вы вышли!"
+
+                if len(account) == 0:
+                    password = "".join(password)
+                    account.update(xdict)
+                    return f"---> Successful! {login, password}"
+
+                listname = [i for i in account]
+
+                if login in listname:
+                    return "---> Такой пользователь уже есть! \n---> попробуйте ещё раз"
                 else:
-                    return "Error!"
-
-                password = "".join(password)
-
-            elif select == "generate":
-                str0 = ".,:;!_*-+()/#¤%&"
-                str1 = '0123456789'
-                str2 = 'qwertyuiopasdfghjklzxcvbnm'
-                str3 = str2.upper()
-                str4 = str0 + str1 + str2 + str3
-                ls = list(str4)
-                random.shuffle(ls)
-                # Извлекаем из списка 12 произвольных значений
-                password = ''.join([random.choice(ls) for x in range(12)])
-                # Пароль готов
-                print(password)
-
-            print("--> exit - выход, next - дальше")
-            select1 = str(input("--> Введите значение: "))
-
-            xdict = {login: password}
-
-            if select1 == "next":
+                    password = "".join(password)
+                    account.update(xdict)
+                    return f"---> Successful! {login, password}"
+            except:
                 pass
-            elif select == "exit":
-                return "Вы вышли!"
-
-            if len(account) == 0:
-                password = "".join(password)
-                account.update(xdict)
-                return f"---> Successful! {login, password}"
-
-            listname = [i for i in account]
-
-            if login in listname:
-                return "---> Такой пользователь уже есть! \n---> попробуйте ещё раз"
-            else:
-                password = "".join(password)
-                account.update(xdict)
-                return f"---> Successful! {login, password}"
     except DeprecationWarning:
         pass
 
