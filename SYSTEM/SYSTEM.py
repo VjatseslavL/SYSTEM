@@ -82,7 +82,7 @@ def sign_up():
                 if len(account) == 0:
                     password = "".join(password)
                     account.update(xdict)
-                    return f"---> Successful! {login, password}"
+                    return f"---> Успех! {login, password}"
 
                 listname = [i for i in account]
 
@@ -91,7 +91,7 @@ def sign_up():
                 else:
                     password = "".join(password)
                     account.update(xdict)
-                    return f"---> Successful! {login, password}"
+                    return f"---> Успех! {login, password}"
             except:
                 pass
     except DeprecationWarning:
@@ -115,7 +115,7 @@ def sign_in():
                 return "Вы вышли!"
 
             if login in account and account[login] == password:
-                print("---> Successful!\n" + "---> Вы вошли в систему")
+                print("---> Успех\n" + "---> Вы вошли в систему")
                 return log()
             else:
                 count += 1
